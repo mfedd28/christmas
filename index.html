@@ -19,6 +19,16 @@
             position: relative;
         }
 
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
         /* Animated snowflakes */
         .snowflake {
             position: fixed;
@@ -48,6 +58,141 @@
             text-align: center;
             margin-bottom: 50px;
             animation: slideDown 0.8s ease-out;
+            overflow: visible;
+        }
+
+        .sleigh-container {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            animation: sleighFly 3s ease-out forwards;
+        }
+
+        @keyframes sleighFly {
+            0% {
+                transform: translateX(150vw) translateY(-100px) rotate(15deg);
+                opacity: 0;
+            }
+            60% {
+                transform: translateX(-20px) translateY(-10px) rotate(-5deg);
+                opacity: 1;
+            }
+            75% {
+                transform: translateX(10px) translateY(5px) rotate(3deg);
+            }
+            90% {
+                transform: translateX(-5px) translateY(-2px) rotate(-2deg);
+            }
+            100% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .reindeer {
+            font-size: 3em;
+            animation: reindeerBounce 1s ease-in-out infinite;
+            animation-delay: 3s;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+
+        .reindeer-2 {
+            font-size: 2.8em;
+            animation-delay: 3.15s;
+            filter: drop-shadow(0 0 10px rgba(255, 100, 100, 0.5));
+        }
+
+        .reindeer-3 {
+            font-size: 2.6em;
+            animation-delay: 3.3s;
+            filter: drop-shadow(0 0 10px rgba(100, 255, 100, 0.5));
+        }
+
+        @keyframes reindeerBounce {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-8px) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(0) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-8px) rotate(5deg);
+            }
+        }
+
+        .jenny-name {
+            font-size: 3em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4), 0 0 20px rgba(255,215,0,0.6);
+            font-family: 'Brush Script MT', cursive, 'Georgia', serif;
+            background: linear-gradient(45deg, #fff, #ffd700, #fff, #ff69b4, #fff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 3px;
+            animation: sparkle 2s ease-in-out infinite;
+            animation-delay: 3s;
+            position: relative;
+            margin-left: 15px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                background-position: 0% 50%;
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.05) rotate(2deg);
+            }
+            50% {
+                background-position: 100% 50%;
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.05) rotate(-2deg);
+            }
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.5);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .control-btn.active {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
         }
 
         @keyframes slideDown {
@@ -288,6 +433,76 @@
             }
         }
 
+        .fun-fact-container {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe6cc 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px solid #f39c12;
+        }
+
+        .fun-fact {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+        }
+
+        .recipe-btn {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .recipe-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
+        }
+
+        .recipe-modal-content {
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .recipe-emoji {
+            font-size: 4em;
+            margin: 20px 0;
+        }
+
+        .recipe-content {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .recipe-section {
+            margin-bottom: 30px;
+        }
+
+        .recipe-section h3 {
+            color: #c41e3a;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .recipe-section ul, .recipe-section ol {
+            padding-left: 25px;
+        }
+
+        .recipe-section li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: #333;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2em;
@@ -312,7 +527,16 @@
 <body>
     <div class="container">
         <header>
+            <div class="sleigh-container">
+                <div class="reindeer">🦌</div>
+                <div class="reindeer reindeer-2">🦌</div>
+                <div class="reindeer reindeer-3">🦌</div>
+                <div class="jenny-name">Jenny's</div>
+            </div>
             <h1>🎄 Christmas Countdown 🎅</h1>
+            <div class="controls">
+                <button id="music-toggle" class="control-btn">🎵 Play Music</button>
+            </div>
         </header>
 
         <div class="countdown-main">
@@ -346,8 +570,33 @@
             <h2 id="modal-title"></h2>
             <div class="surprise-emoji" id="modal-emoji"></div>
             <div class="surprise-content" id="modal-text"></div>
+            <div class="fun-fact-container">
+                <h3 style="color: #c41e3a; margin-top: 30px; margin-bottom: 10px;">🎄 Fun Fact of the Day!</h3>
+                <div class="fun-fact" id="fun-fact"></div>
+            </div>
+            <button class="recipe-btn" onclick="showRecipe()">🍪 View Today's Recipe</button>
         </div>
     </div>
+
+    <div class="modal" id="recipe-modal">
+        <div class="modal-content recipe-modal-content">
+            <span class="close-modal" onclick="closeRecipeModal()">&times;</span>
+            <h2 id="recipe-title"></h2>
+            <div class="recipe-emoji" id="recipe-emoji">🍪</div>
+            <div class="recipe-content">
+                <div class="recipe-section">
+                    <h3>Ingredients:</h3>
+                    <ul id="recipe-ingredients"></ul>
+                </div>
+                <div class="recipe-section">
+                    <h3>Instructions:</h3>
+                    <ol id="recipe-instructions"></ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
 
     <script>
         // Create snowflakes
@@ -363,6 +612,198 @@
                 snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
                 document.body.appendChild(snowflake);
             }
+        }
+
+        // Music player - Simple and reliable
+        let isPlaying = false;
+        let musicIntervals = [];
+
+        function toggleMusic() {
+            const btn = document.getElementById('music-toggle');
+            
+            if (!isPlaying) {
+                playChristmasMusic();
+                btn.textContent = '🔇 Stop Music';
+                btn.classList.add('active');
+                isPlaying = true;
+            } else {
+                stopMusic();
+                btn.textContent = '🎵 Play Music';
+                btn.classList.remove('active');
+                isPlaying = false;
+            }
+        }
+
+        function beep(frequency, duration, volume = 0.3) {
+            return new Promise((resolve) => {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.01);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000 - 0.04);
+                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration / 1000);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration / 1000);
+                
+                setTimeout(() => {
+                    audioContext.close();
+                    resolve();
+                }, duration);
+            });
+        }
+
+        async function playChristmasMusic() {
+            // Jingle Bells melody
+            const melody = [
+                { freq: 329.63, duration: 200 },  // E
+                { freq: 329.63, duration: 200 },  // E
+                { freq: 329.63, duration: 400 },  // E
+                { freq: 329.63, duration: 200 },  // E
+                { freq: 329.63, duration: 200 },  // E
+                { freq: 329.63, duration: 400 },  // E
+                { freq: 329.63, duration: 200 },  // E
+                { freq: 392.00, duration: 200 },  // G
+                { freq: 261.63, duration: 300 },  // C
+                { freq: 293.66, duration: 100 },  // D
+                { freq: 329.63, duration: 800 },  // E
+                { freq: 0, duration: 400 },       // Rest
+            ];
+            
+            async function playMelody() {
+                for (let i = 0; i < melody.length && isPlaying; i++) {
+                    const note = melody[i];
+                    if (note.freq > 0) {
+                        await beep(note.freq, note.duration, 0.2);
+                    } else {
+                        await new Promise(resolve => setTimeout(resolve, note.duration));
+                    }
+                }
+                
+                // Loop if still playing
+                if (isPlaying) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    playMelody();
+                }
+            }
+            
+            playMelody();
+        }
+
+        function stopMusic() {
+            isPlaying = false;
+            musicIntervals.forEach(interval => clearInterval(interval));
+            musicIntervals = [];
+        }
+
+        // Confetti animation
+        function createConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const confettiPieces = [];
+            const colors = ['#c41e3a', '#2ecc71', '#f39c12', '#3498db', '#9b59b6', '#fff'];
+            
+            class ConfettiPiece {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = -20;
+                    this.size = Math.random() * 10 + 5;
+                    this.speedY = Math.random() * 3 + 2;
+                    this.speedX = Math.random() * 2 - 1;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.rotation = Math.random() * 360;
+                    this.rotationSpeed = Math.random() * 10 - 5;
+                }
+                
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    this.rotation += this.rotationSpeed;
+                    
+                    if (this.y > canvas.height) {
+                        this.y = -20;
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+                
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation * Math.PI / 180);
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                    ctx.restore();
+                }
+            }
+            
+            for (let i = 0; i < 100; i++) {
+                confettiPieces.push(new ConfettiPiece());
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                confettiPieces.forEach(piece => {
+                    piece.update();
+                    piece.draw();
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            // Auto-stop after 5 seconds
+            setTimeout(() => {
+                canvas.style.display = 'none';
+            }, 5000);
+        }
+
+        // Recipe functions
+        let currentDay = null;
+
+        function showRecipe() {
+            if (currentDay && recipes[currentDay]) {
+                const recipe = recipes[currentDay];
+                const recipeModal = document.getElementById('recipe-modal');
+                
+                document.getElementById('recipe-title').textContent = recipe.name;
+                document.getElementById('recipe-emoji').textContent = recipe.emoji;
+                
+                const ingredientsList = document.getElementById('recipe-ingredients');
+                ingredientsList.innerHTML = '';
+                recipe.ingredients.forEach(ingredient => {
+                    const li = document.createElement('li');
+                    li.textContent = ingredient;
+                    ingredientsList.appendChild(li);
+                });
+                
+                const instructionsList = document.getElementById('recipe-instructions');
+                instructionsList.innerHTML = '';
+                recipe.instructions.forEach(instruction => {
+                    const li = document.createElement('li');
+                    li.textContent = instruction;
+                    instructionsList.appendChild(li);
+                });
+                
+                recipeModal.style.display = 'flex';
+            }
+        }
+
+        function closeRecipeModal() {
+            document.getElementById('recipe-modal').style.display = 'none';
         }
 
         // Daily surprises
@@ -392,6 +833,626 @@
             23: { emoji: '⏰', text: 'Just 2 more sleeps until Christmas!' },
             24: { emoji: '🌙', text: 'Christmas Eve! Santa is on his way!' },
             25: { emoji: '🎉', text: 'MERRY CHRISTMAS! 🎄🎅🎁' }
+        };
+
+        // Daily fun facts
+        const funFacts = {
+            1: '🎅 Santa Claus is based on the real-life Saint Nicholas, a monk who lived around 280 A.D. in Turkey!',
+            2: '🎄 The tradition of Christmas trees started in Germany in the 16th century!',
+            3: '🎁 The world\'s largest Christmas present was the Statue of Liberty - a gift from France to the USA!',
+            4: '⛄ The world\'s largest snowman was actually a snow-woman named Olympia, built in Maine at 122 feet tall!',
+            5: '🍪 Americans consume over 150 million candy canes during Christmas each year!',
+            6: '🔔 "Jingle Bells" was originally written for Thanksgiving, not Christmas!',
+            7: '🦌 Reindeer are the only deer species where both males and females grow antlers!',
+            8: '🎵 "Silent Night" has been translated into over 300 languages!',
+            9: '❄️ No two snowflakes are exactly alike - each one is unique!',
+            10: '🎬 The movie "It\'s a Wonderful Life" was considered a flop when it first came out!',
+            11: '🌟 The first artificial Christmas tree was made in Germany using dyed goose feathers!',
+            12: '☕ Hot chocolate was originally used as medicine in the 1500s!',
+            13: '🎅 Santa has different names around the world: Père Noël in France, Papá Noel in Spain!',
+            14: '💌 Over 3 billion Christmas cards are sent in the U.S. each year!',
+            15: '🎄 The tallest Christmas tree ever displayed was 221 feet tall in Washington in 1950!',
+            16: '🎁 The song "The Twelve Days of Christmas" gifts would total 364 gifts if you added them all up!',
+            17: '🍬 Candy canes were created to keep children quiet during church services!',
+            18: '📖 The modern image of Santa in red was popularized by Coca-Cola ads in the 1930s!',
+            19: '🎊 Boxing Day (Dec 26) got its name from the tradition of giving boxes to the poor!',
+            20: '🎺 "Rudolph the Red-Nosed Reindeer" was created as a marketing gimmick for Montgomery Ward!',
+            21: '🌲 Norway donates a Christmas tree to London every year to thank them for WWII support!',
+            22: '🎨 The tradition of leaving cookies and milk for Santa started during the Great Depression!',
+            23: '⏰ In Japan, KFC is a traditional Christmas dinner, and people order months in advance!',
+            24: '🌙 NORAD tracks Santa on Christmas Eve because of a typo in a 1955 newspaper ad!',
+            25: '🎉 Christmas became a federal holiday in the United States in 1870!'
+        };
+
+        // Daily recipes
+        const recipes = {
+            1: {
+                name: 'Classic Sugar Cookies',
+                emoji: '🍪',
+                ingredients: [
+                    '2¾ cups all-purpose flour',
+                    '1 tsp baking soda',
+                    '½ tsp baking powder',
+                    '1 cup butter, softened',
+                    '1½ cups white sugar',
+                    '1 egg',
+                    '1 tsp vanilla extract'
+                ],
+                instructions: [
+                    'Preheat oven to 375°F (190°C)',
+                    'Mix flour, baking soda, and baking powder in a bowl',
+                    'Cream butter and sugar until fluffy',
+                    'Beat in egg and vanilla',
+                    'Gradually blend in dry ingredients',
+                    'Roll dough into balls and place on cookie sheet',
+                    'Bake 8-10 minutes until golden',
+                    'Let cool and decorate with icing!'
+                ]
+            },
+            2: {
+                name: 'Gingerbread Cookies',
+                emoji: '🎄',
+                ingredients: [
+                    '3 cups flour',
+                    '1 tsp baking soda',
+                    '2 tsp ground ginger',
+                    '1 tsp cinnamon',
+                    '½ tsp nutmeg',
+                    '¾ cup butter',
+                    '¾ cup brown sugar',
+                    '½ cup molasses',
+                    '1 egg'
+                ],
+                instructions: [
+                    'Mix flour, baking soda, and spices',
+                    'Beat butter and sugar until fluffy',
+                    'Add molasses and egg',
+                    'Stir in dry ingredients',
+                    'Chill dough for 2 hours',
+                    'Roll out and cut into shapes',
+                    'Bake at 350°F for 8-10 minutes',
+                    'Decorate with royal icing!'
+                ]
+            },
+            3: {
+                name: 'Chocolate Peppermint Cookies',
+                emoji: '🍫',
+                ingredients: [
+                    '1¾ cups flour',
+                    '¾ cup cocoa powder',
+                    '1 tsp baking soda',
+                    '1 cup butter',
+                    '1½ cups sugar',
+                    '2 eggs',
+                    '1 tsp peppermint extract',
+                    'Crushed candy canes'
+                ],
+                instructions: [
+                    'Combine flour, cocoa, and baking soda',
+                    'Cream butter and sugar',
+                    'Beat in eggs and peppermint',
+                    'Mix in dry ingredients',
+                    'Form into balls',
+                    'Roll in crushed candy canes',
+                    'Bake at 350°F for 10 minutes',
+                    'Cool and enjoy!'
+                ]
+            },
+            4: {
+                name: 'Snickerdoodles',
+                emoji: '⭐',
+                ingredients: [
+                    '2¾ cups flour',
+                    '2 tsp cream of tartar',
+                    '1 tsp baking soda',
+                    '1 cup butter',
+                    '1½ cups sugar',
+                    '2 eggs',
+                    'Cinnamon sugar for rolling'
+                ],
+                instructions: [
+                    'Mix flour, cream of tartar, and baking soda',
+                    'Cream butter and sugar',
+                    'Beat in eggs',
+                    'Stir in dry mixture',
+                    'Roll into balls',
+                    'Roll in cinnamon sugar',
+                    'Bake at 375°F for 10 minutes',
+                    'Enjoy warm!'
+                ]
+            },
+            5: {
+                name: 'Shortbread Cookies',
+                emoji: '🎁',
+                ingredients: [
+                    '2 cups butter, softened',
+                    '1 cup powdered sugar',
+                    '4 cups flour',
+                    '1 tsp vanilla',
+                    'Pinch of salt'
+                ],
+                instructions: [
+                    'Cream butter and sugar',
+                    'Add vanilla',
+                    'Mix in flour and salt',
+                    'Roll out dough',
+                    'Cut into shapes',
+                    'Bake at 325°F for 12-15 minutes',
+                    'Cool completely',
+                    'Store in airtight container'
+                ]
+            },
+            6: {
+                name: 'Chocolate Chip Cookies',
+                emoji: '🍪',
+                ingredients: [
+                    '2¼ cups flour',
+                    '1 tsp baking soda',
+                    '1 cup butter',
+                    '¾ cup sugar',
+                    '¾ cup brown sugar',
+                    '2 eggs',
+                    '2 tsp vanilla',
+                    '2 cups chocolate chips'
+                ],
+                instructions: [
+                    'Mix flour and baking soda',
+                    'Beat butter and both sugars',
+                    'Add eggs and vanilla',
+                    'Stir in flour mixture',
+                    'Fold in chocolate chips',
+                    'Drop spoonfuls on sheet',
+                    'Bake at 375°F for 9-11 minutes',
+                    'Cool on wire rack'
+                ]
+            },
+            7: {
+                name: 'Peanut Butter Blossoms',
+                emoji: '🌟',
+                ingredients: [
+                    '1¾ cups flour',
+                    '1 tsp baking soda',
+                    '½ cup butter',
+                    '½ cup peanut butter',
+                    '½ cup sugar',
+                    '½ cup brown sugar',
+                    '1 egg',
+                    'Hershey Kisses'
+                ],
+                instructions: [
+                    'Mix flour and baking soda',
+                    'Beat butter, peanut butter, and sugars',
+                    'Add egg',
+                    'Stir in flour',
+                    'Roll in sugar',
+                    'Bake at 375°F for 8-10 minutes',
+                    'Immediately press Kiss into center',
+                    'Cool completely'
+                ]
+            },
+            8: {
+                name: 'Oatmeal Raisin Cookies',
+                emoji: '🥣',
+                ingredients: [
+                    '1½ cups flour',
+                    '1 tsp baking soda',
+                    '1 tsp cinnamon',
+                    '1 cup butter',
+                    '1 cup brown sugar',
+                    '2 eggs',
+                    '3 cups oats',
+                    '1 cup raisins'
+                ],
+                instructions: [
+                    'Combine flour, baking soda, cinnamon',
+                    'Cream butter and sugar',
+                    'Beat in eggs',
+                    'Stir in flour mixture',
+                    'Mix in oats and raisins',
+                    'Drop on baking sheet',
+                    'Bake at 350°F for 10-12 minutes',
+                    'Cool on rack'
+                ]
+            },
+            9: {
+                name: 'Snowball Cookies',
+                emoji: '⛄',
+                ingredients: [
+                    '1 cup butter',
+                    '½ cup powdered sugar',
+                    '2¼ cups flour',
+                    '¾ cup finely chopped pecans',
+                    '1 tsp vanilla',
+                    'Extra powdered sugar for coating'
+                ],
+                instructions: [
+                    'Cream butter and sugar',
+                    'Add vanilla',
+                    'Mix in flour and pecans',
+                    'Form into 1-inch balls',
+                    'Bake at 350°F for 12 minutes',
+                    'Cool slightly',
+                    'Roll in powdered sugar twice',
+                    'Enjoy these melt-in-your-mouth treats!'
+                ]
+            },
+            10: {
+                name: 'Linzer Cookies',
+                emoji: '❤️',
+                ingredients: [
+                    '2 cups flour',
+                    '1 cup ground almonds',
+                    '¾ cup butter',
+                    '⅔ cup sugar',
+                    '1 egg',
+                    '1 tsp vanilla',
+                    'Raspberry jam',
+                    'Powdered sugar'
+                ],
+                instructions: [
+                    'Mix flour and almonds',
+                    'Cream butter and sugar',
+                    'Beat in egg and vanilla',
+                    'Add flour mixture',
+                    'Chill 1 hour',
+                    'Roll and cut shapes (cut centers from half)',
+                    'Bake at 350°F for 10 minutes',
+                    'Spread jam on solid cookies, top with cutout cookies, dust with sugar'
+                ]
+            },
+            11: {
+                name: 'Molasses Cookies',
+                emoji: '🍯',
+                ingredients: [
+                    '2¼ cups flour',
+                    '2 tsp baking soda',
+                    '1 tsp cinnamon',
+                    '1 tsp ginger',
+                    '¾ cup butter',
+                    '1 cup sugar',
+                    '¼ cup molasses',
+                    '1 egg'
+                ],
+                instructions: [
+                    'Mix flour, baking soda, and spices',
+                    'Beat butter and sugar',
+                    'Add molasses and egg',
+                    'Stir in dry ingredients',
+                    'Roll into balls',
+                    'Roll in sugar',
+                    'Bake at 375°F for 10 minutes',
+                    'Let cool and enjoy the chewy texture!'
+                ]
+            },
+            12: {
+                name: 'Russian Tea Cakes',
+                emoji: '☕',
+                ingredients: [
+                    '1 cup butter',
+                    '½ cup powdered sugar',
+                    '1 tsp vanilla',
+                    '2¼ cups flour',
+                    '¼ tsp salt',
+                    '¾ cup finely chopped walnuts',
+                    'Extra powdered sugar'
+                ],
+                instructions: [
+                    'Cream butter, sugar, and vanilla',
+                    'Add flour, salt, and nuts',
+                    'Roll into 1-inch balls',
+                    'Bake at 350°F for 12 minutes',
+                    'Cool 5 minutes',
+                    'Roll in powdered sugar',
+                    'Cool completely',
+                    'Roll in sugar again!'
+                ]
+            },
+            13: {
+                name: 'Cranberry Orange Cookies',
+                emoji: '🍊',
+                ingredients: [
+                    '2½ cups flour',
+                    '1 tsp baking powder',
+                    '1 cup butter',
+                    '1 cup sugar',
+                    '1 egg',
+                    'Orange zest from 1 orange',
+                    '1 cup dried cranberries'
+                ],
+                instructions: [
+                    'Mix flour and baking powder',
+                    'Cream butter and sugar',
+                    'Beat in egg and orange zest',
+                    'Stir in flour',
+                    'Fold in cranberries',
+                    'Drop on sheet',
+                    'Bake at 350°F for 12 minutes',
+                    'Perfect festive flavor!'
+                ]
+            },
+            14: {
+                name: 'Coconut Macaroons',
+                emoji: '🥥',
+                ingredients: [
+                    '3 cups sweetened coconut',
+                    '⅔ cup sugar',
+                    '6 tbsp flour',
+                    '¼ tsp salt',
+                    '4 egg whites',
+                    '1 tsp vanilla',
+                    'Optional: melted chocolate for dipping'
+                ],
+                instructions: [
+                    'Mix coconut, sugar, flour, salt',
+                    'Stir in egg whites and vanilla',
+                    'Drop mounds on parchment paper',
+                    'Bake at 325°F for 20 minutes',
+                    'Cool completely',
+                    'Dip in chocolate if desired',
+                    'Let chocolate set',
+                    'Store in airtight container'
+                ]
+            },
+            15: {
+                name: 'Almond Crescents',
+                emoji: '🌙',
+                ingredients: [
+                    '1 cup butter',
+                    '⅓ cup sugar',
+                    '2 cups flour',
+                    '1 cup finely ground almonds',
+                    '1 tsp vanilla',
+                    'Powdered sugar for coating'
+                ],
+                instructions: [
+                    'Cream butter and sugar',
+                    'Add vanilla',
+                    'Mix in flour and almonds',
+                    'Shape into crescents',
+                    'Bake at 325°F for 15 minutes',
+                    'Cool 5 minutes',
+                    'Roll in powdered sugar',
+                    'Delicate and delicious!'
+                ]
+            },
+            16: {
+                name: 'Thumbprint Cookies',
+                emoji: '👍',
+                ingredients: [
+                    '1 cup butter',
+                    '⅔ cup sugar',
+                    '2 egg yolks',
+                    '1 tsp vanilla',
+                    '2 cups flour',
+                    '2 egg whites',
+                    '1½ cups finely chopped nuts',
+                    'Jam for filling'
+                ],
+                instructions: [
+                    'Cream butter and sugar',
+                    'Beat in yolks and vanilla',
+                    'Mix in flour',
+                    'Roll into balls',
+                    'Dip in egg whites, then nuts',
+                    'Make thumbprint in center',
+                    'Bake at 350°F for 15 minutes',
+                    'Fill with jam while warm'
+                ]
+            },
+            17: {
+                name: 'Candy Cane Cookies',
+                emoji: '🍬',
+                ingredients: [
+                    '1 cup butter',
+                    '1 cup powdered sugar',
+                    '1 egg',
+                    '1 tsp vanilla',
+                    '½ tsp peppermint extract',
+                    '2½ cups flour',
+                    'Red food coloring'
+                ],
+                instructions: [
+                    'Cream butter and sugar',
+                    'Beat in egg and extracts',
+                    'Mix in flour',
+                    'Divide dough in half',
+                    'Color one half red',
+                    'Roll ropes and twist together',
+                    'Shape into candy canes',
+                    'Bake at 375°F for 9 minutes'
+                ]
+            },
+            18: {
+                name: 'Lemon Snowdrops',
+                emoji: '🍋',
+                ingredients: [
+                    '1 cup butter',
+                    '½ cup powdered sugar',
+                    '2 cups flour',
+                    '2 tbsp lemon zest',
+                    '2 tbsp lemon juice',
+                    'Extra powdered sugar for coating'
+                ],
+                instructions: [
+                    'Cream butter and sugar',
+                    'Add lemon zest and juice',
+                    'Mix in flour',
+                    'Roll into balls',
+                    'Bake at 350°F for 12 minutes',
+                    'Cool slightly',
+                    'Roll in powdered sugar',
+                    'Bright and refreshing!'
+                ]
+            },
+            19: {
+                name: 'Chocolate Crinkles',
+                emoji: '🌑',
+                ingredients: [
+                    '1 cup cocoa powder',
+                    '2 cups sugar',
+                    '½ cup vegetable oil',
+                    '4 eggs',
+                    '2 tsp vanilla',
+                    '2 cups flour',
+                    '2 tsp baking powder',
+                    'Powdered sugar for rolling'
+                ],
+                instructions: [
+                    'Mix cocoa, sugar, and oil',
+                    'Beat in eggs one at a time',
+                    'Add vanilla',
+                    'Stir in flour and baking powder',
+                    'Chill 4 hours',
+                    'Roll in powdered sugar',
+                    'Bake at 350°F for 10 minutes',
+                    'Beautiful crackled appearance!'
+                ]
+            },
+            20: {
+                name: 'Frosted Sugar Cookie Bars',
+                emoji: '🎨',
+                ingredients: [
+                    '1 cup butter',
+                    '2 cups sugar',
+                    '4 eggs',
+                    '1 tsp vanilla',
+                    '3 cups flour',
+                    '1 tsp baking powder',
+                    'Frosting and sprinkles'
+                ],
+                instructions: [
+                    'Cream butter and sugar',
+                    'Beat in eggs and vanilla',
+                    'Mix in flour and baking powder',
+                    'Spread in greased pan',
+                    'Bake at 350°F for 20-25 minutes',
+                    'Cool completely',
+                    'Frost and add sprinkles',
+                    'Cut into bars!'
+                ]
+            },
+            21: {
+                name: 'Eggnog Cookies',
+                emoji: '🥛',
+                ingredients: [
+                    '2¼ cups flour',
+                    '1 tsp baking powder',
+                    '½ tsp nutmeg',
+                    '1 cup butter',
+                    '1 cup sugar',
+                    '1 egg',
+                    '¼ cup eggnog',
+                    '1 tsp rum extract'
+                ],
+                instructions: [
+                    'Mix flour, baking powder, nutmeg',
+                    'Cream butter and sugar',
+                    'Beat in egg, eggnog, and extract',
+                    'Stir in dry ingredients',
+                    'Drop on sheet',
+                    'Bake at 350°F for 12 minutes',
+                    'Drizzle with eggnog glaze',
+                    'Festive holiday flavor!'
+                ]
+            },
+            22: {
+                name: 'Chai Spice Cookies',
+                emoji: '🫖',
+                ingredients: [
+                    '2¾ cups flour',
+                    '2 tsp baking soda',
+                    '2 tsp cinnamon',
+                    '1 tsp ginger',
+                    '½ tsp cardamom',
+                    '½ tsp cloves',
+                    '1 cup butter',
+                    '1½ cups sugar',
+                    '1 egg'
+                ],
+                instructions: [
+                    'Mix flour, baking soda, and spices',
+                    'Cream butter and 1 cup sugar',
+                    'Beat in egg',
+                    'Stir in dry mixture',
+                    'Roll into balls',
+                    'Roll in remaining sugar',
+                    'Bake at 375°F for 10 minutes',
+                    'Aromatic and delicious!'
+                ]
+            },
+            23: {
+                name: 'White Chocolate Macadamia',
+                emoji: '⚪',
+                ingredients: [
+                    '2¼ cups flour',
+                    '1 tsp baking soda',
+                    '1 cup butter',
+                    '¾ cup sugar',
+                    '¾ cup brown sugar',
+                    '2 eggs',
+                    '1 tsp vanilla',
+                    '1½ cups white chocolate chips',
+                    '1 cup macadamia nuts'
+                ],
+                instructions: [
+                    'Mix flour and baking soda',
+                    'Cream butter and sugars',
+                    'Beat in eggs and vanilla',
+                    'Stir in flour',
+                    'Fold in chips and nuts',
+                    'Drop on sheet',
+                    'Bake at 350°F for 10 minutes',
+                    'Luxurious and indulgent!'
+                ]
+            },
+            24: {
+                name: 'Chocolate Mint Sandwiches',
+                emoji: '🎄',
+                ingredients: [
+                    '1¾ cups flour',
+                    '½ cup cocoa',
+                    '1 tsp baking soda',
+                    '1 cup butter',
+                    '1 cup sugar',
+                    '1 egg',
+                    'Mint buttercream filling',
+                    'Crushed candy canes'
+                ],
+                instructions: [
+                    'Mix flour, cocoa, baking soda',
+                    'Cream butter and sugar',
+                    'Beat in egg',
+                    'Stir in dry ingredients',
+                    'Bake at 350°F for 10 minutes',
+                    'Cool completely',
+                    'Make mint filling, sandwich cookies',
+                    'Roll edges in crushed candy canes!'
+                ]
+            },
+            25: {
+                name: 'Christmas Tree Brownies',
+                emoji: '🎄',
+                ingredients: [
+                    '1 cup butter',
+                    '2 cups sugar',
+                    '4 eggs',
+                    '¾ cup cocoa',
+                    '1 cup flour',
+                    '1 tsp vanilla',
+                    'Green frosting',
+                    'Decorating sprinkles and candies'
+                ],
+                instructions: [
+                    'Melt butter, stir in sugar',
+                    'Beat in eggs',
+                    'Mix in cocoa, flour, vanilla',
+                    'Bake at 350°F for 30 minutes',
+                    'Cool completely',
+                    'Cut into triangles for trees',
+                    'Frost with green icing',
+                    'Decorate with sprinkles and a star on top!'
+                ]
+            }
         };
 
         // Update countdown
@@ -463,12 +1524,26 @@
         function openDay(day) {
             const modal = document.getElementById('modal');
             const surprise = surprises[day];
+            const funFact = funFacts[day];
+            
+            currentDay = day; // Store for recipe access
             
             document.getElementById('modal-title').textContent = `December ${day}`;
             document.getElementById('modal-emoji').textContent = surprise.emoji;
             document.getElementById('modal-text').textContent = surprise.text;
             
+            // Add fun fact
+            const funFactEl = document.getElementById('fun-fact');
+            if (funFactEl) {
+                funFactEl.textContent = funFact;
+            }
+            
             modal.style.display = 'flex';
+            
+            // Trigger confetti!
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.style.display = 'block';
+            createConfetti();
             
             localStorage.setItem(`day-${day}`, 'opened');
             
@@ -495,6 +1570,9 @@
         createCalendar();
         updateCountdown();
         setInterval(updateCountdown, 1000);
+        
+        // Setup music toggle
+        document.getElementById('music-toggle').addEventListener('click', toggleMusic);
     </script>
 </body>
 </html>
