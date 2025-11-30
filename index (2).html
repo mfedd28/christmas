@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 Christmas Countdown Calendar 🎅</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a472a 0%, #0f2921 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated snowflakes */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 1;
+            color: white;
+            font-size: 1em;
+            animation: fall linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .countdown-main {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .time-unit {
+            background: linear-gradient(135deg, #c41e3a 0%, #8b1a2e 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            min-width: 120px;
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.4);
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .time-unit:hover {
+            transform: scale(1.05);
+        }
+
+        .time-value {
+            font-size: 3em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .calendar-day {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .calendar-day:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .day-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #c41e3a;
+            margin-bottom: 10px;
+        }
+
+        .day-locked {
+            background: linear-gradient(135deg, #999 0%, #666 100%);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .day-locked .day-number {
+            color: white;
+        }
+
+        .day-locked::before {
+            content: '🔒';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+        }
+
+        .day-unlocked {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .day-unlocked .day-number {
+            color: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+            }
+            50% {
+                box-shadow: 0 5px 30px rgba(46, 204, 113, 0.8);
+            }
+        }
+
+        .day-opened {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        }
+
+        .day-opened .day-number {
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInModal 0.3s ease-out;
+        }
+
+        @keyframes fadeInModal {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #c41e3a;
+        }
+
+        .surprise-content {
+            margin-top: 20px;
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .surprise-emoji {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .fun-fact-container {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe6cc 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px solid #f39c12;
+        }
+
+        .fun-fact {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 15px;
+            }
+
+            .time-unit {
+                min-width: 80px;
+                padding: 15px;
+            }
+
+            .time-value {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎄 Christmas Countdown 🎅</h1>
+        </header>
+
+        <div class="countdown-main">
+            <h2 style="color: #c41e3a; font-size: 2em; margin-bottom: 20px;">Time Until Christmas!</h2>
+            <div class="time-display">
+                <div class="time-unit">
+                    <span class="time-value" id="days">0</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-value" id="hours">0</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-value" id="minutes">0</span>
+                    <span class="time-label">Minutes</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-value" id="seconds">0</span>
+                    <span class="time-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="calendar-grid" id="calendar"></div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <div class="surprise-emoji" id="modal-emoji"></div>
+            <div class="surprise-content" id="modal-text"></div>
+            <div class="fun-fact-container">
+                <h3 style="color: #c41e3a; margin-top: 30px; margin-bottom: 10px;">🎄 Fun Fact of the Day!</h3>
+                <div class="fun-fact" id="fun-fact"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create snowflakes
+        function createSnowflakes() {
+            const snowflakeCount = 50;
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                document.body.appendChild(snowflake);
+            }
+        }
+
+        // Daily surprises
+        const surprises = {
+            1: { emoji: '🎅', text: 'Ho ho ho! Santa is watching! Have you been good this year?' },
+            2: { emoji: '🎁', text: 'Start your wish list! What\'s the one thing you\'re hoping for?' },
+            3: { emoji: '⛄', text: 'Build a snowman today, or at least imagine one!' },
+            4: { emoji: '🕯️', text: 'Light a candle and enjoy the cozy vibes!' },
+            5: { emoji: '🍪', text: 'Time to bake some cookies! Don\'t forget milk for Santa!' },
+            6: { emoji: '🎄', text: 'Have you decorated your tree yet? No? Better get started!' },
+            7: { emoji: '🔔', text: 'Jingle bells, jingle bells, jingle all the way!' },
+            8: { emoji: '🎵', text: 'Sing your favorite Christmas carol today!' },
+            9: { emoji: '❄️', text: 'Make a snow angel, real or imaginary!' },
+            10: { emoji: '🧦', text: 'Hang your stockings with care!' },
+            11: { emoji: '🎬', text: 'Watch a classic Christmas movie tonight!' },
+            12: { emoji: '☕', text: 'Enjoy a hot cocoa with marshmallows!' },
+            13: { emoji: '🦌', text: 'Rudolph is practicing for the big night!' },
+            14: { emoji: '💌', text: 'Send a Christmas card to someone special!' },
+            15: { emoji: '🌟', text: 'Halfway there! Put the star on top of your tree!' },
+            16: { emoji: '🎀', text: 'Start wrapping those presents!' },
+            17: { emoji: '🍬', text: 'Enjoy a candy cane! Yum!' },
+            18: { emoji: '📖', text: 'Read \'Twas the Night Before Christmas!' },
+            19: { emoji: '🎊', text: 'The excitement is building! Can you feel it?' },
+            20: { emoji: '🎺', text: 'Listen to some Christmas music today!' },
+            21: { emoji: '🌲', text: 'Winter has officially begun! Bundle up!' },
+            22: { emoji: '🎨', text: 'Make a Christmas craft today!' },
+            23: { emoji: '⏰', text: 'Just 2 more sleeps until Christmas!' },
+            24: { emoji: '🌙', text: 'Christmas Eve! Santa is on his way!' },
+            25: { emoji: '🎉', text: 'MERRY CHRISTMAS! 🎄🎅🎁' }
+        };
+
+        // Daily fun facts
+        const funFacts = {
+            1: '🎅 Santa Claus is based on the real-life Saint Nicholas, a monk who lived around 280 A.D. in Turkey!',
+            2: '🎄 The tradition of Christmas trees started in Germany in the 16th century!',
+            3: '🎁 The world\'s largest Christmas present was the Statue of Liberty - a gift from France to the USA!',
+            4: '⛄ The world\'s largest snowman was actually a snow-woman named Olympia, built in Maine at 122 feet tall!',
+            5: '🍪 Americans consume over 150 million candy canes during Christmas each year!',
+            6: '🔔 "Jingle Bells" was originally written for Thanksgiving, not Christmas!',
+            7: '🦌 Reindeer are the only deer species where both males and females grow antlers!',
+            8: '🎵 "Silent Night" has been translated into over 300 languages!',
+            9: '❄️ No two snowflakes are exactly alike - each one is unique!',
+            10: '🎬 The movie "It\'s a Wonderful Life" was considered a flop when it first came out!',
+            11: '🌟 The first artificial Christmas tree was made in Germany using dyed goose feathers!',
+            12: '☕ Hot chocolate was originally used as medicine in the 1500s!',
+            13: '🎅 Santa has different names around the world: Père Noël in France, Papá Noel in Spain!',
+            14: '💌 Over 3 billion Christmas cards are sent in the U.S. each year!',
+            15: '🎄 The tallest Christmas tree ever displayed was 221 feet tall in Washington in 1950!',
+            16: '🎁 The song "The Twelve Days of Christmas" gifts would total 364 gifts if you added them all up!',
+            17: '🍬 Candy canes were created to keep children quiet during church services!',
+            18: '📖 The modern image of Santa in red was popularized by Coca-Cola ads in the 1930s!',
+            19: '🎊 Boxing Day (Dec 26) got its name from the tradition of giving boxes to the poor!',
+            20: '🎺 "Rudolph the Red-Nosed Reindeer" was created as a marketing gimmick for Montgomery Ward!',
+            21: '🌲 Norway donates a Christmas tree to London every year to thank them for WWII support!',
+            22: '🎨 The tradition of leaving cookies and milk for Santa started during the Great Depression!',
+            23: '⏰ In Japan, KFC is a traditional Christmas dinner, and people order months in advance!',
+            24: '🌙 NORAD tracks Santa on Christmas Eve because of a typo in a 1955 newspaper ad!',
+            25: '🎉 Christmas became a federal holiday in the United States in 1870!'
+        };
+
+        // Update countdown
+        function updateCountdown() {
+            const christmas = new Date(new Date().getFullYear(), 11, 25);
+            const now = new Date();
+            
+            if (now > christmas) {
+                christmas.setFullYear(christmas.getFullYear() + 1);
+            }
+
+            const diff = christmas - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Create calendar
+        function createCalendar() {
+            const calendar = document.getElementById('calendar');
+            const today = new Date();
+            const currentDay = today.getDate();
+            const currentMonth = today.getMonth();
+            
+            // Only show days in December
+            const isDecember = currentMonth === 11;
+
+            for (let day = 1; day <= 25; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day';
+                dayDiv.style.animationDelay = (day * 0.05) + 's';
+                
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'day-number';
+                dayNumber.textContent = day;
+                dayDiv.appendChild(dayNumber);
+
+                const status = document.createElement('div');
+                
+                if (isDecember && day <= currentDay) {
+                    // Day is unlocked
+                    const opened = localStorage.getItem(`day-${day}`) === 'opened';
+                    if (opened) {
+                        dayDiv.classList.add('day-opened');
+                        status.textContent = '✓ Opened';
+                    } else {
+                        dayDiv.classList.add('day-unlocked');
+                        status.textContent = '🎁 Click me!';
+                    }
+                    dayDiv.onclick = () => openDay(day);
+                } else {
+                    // Day is locked
+                    dayDiv.classList.add('day-locked');
+                    status.textContent = isDecember ? 'Coming soon!' : 'Wait for December!';
+                }
+                
+                dayDiv.appendChild(status);
+                calendar.appendChild(dayDiv);
+            }
+        }
+
+        function openDay(day) {
+            const modal = document.getElementById('modal');
+            const surprise = surprises[day];
+            const funFact = funFacts[day];
+            
+            document.getElementById('modal-title').textContent = `December ${day}`;
+            document.getElementById('modal-emoji').textContent = surprise.emoji;
+            document.getElementById('modal-text').textContent = surprise.text;
+            
+            // Add fun fact
+            const funFactEl = document.getElementById('fun-fact');
+            if (funFactEl) {
+                funFactEl.textContent = funFact;
+            }
+            
+            modal.style.display = 'flex';
+            
+            localStorage.setItem(`day-${day}`, 'opened');
+            
+            // Update the calendar display
+            setTimeout(() => {
+                location.reload();
+            }, 100);
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Initialize
+        createSnowflakes();
+        createCalendar();
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
